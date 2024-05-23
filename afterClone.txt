@@ -1,0 +1,9 @@
+1. **Activate Virtual Environment **: If you are using a virtual environment (which is a good practice), activate it. For example, if you're using `venv`:
+
+   ```
+   .venv\Scripts\activate     # For Windows
+   ```
+
+   ```
+   source .venv/bin/activate  # For Unix/Mac
+   ```
