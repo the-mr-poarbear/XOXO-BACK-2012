@@ -2,7 +2,7 @@
 
 This project will guide you through creating an API to manage scores for the XOXO game using FastAPI. The project consists of two phases:
 
-1. Connecting database and API
+1. [Connecting database(SQLITE) and API](https://fastapi.tiangolo.com/tutorial/sql-databases/)
 2. Creating a React UI
 
 ## Game Description
