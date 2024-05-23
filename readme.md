@@ -33,7 +33,6 @@ In this phase, you will create routes to:
 
 1. Get the top 10 players by rank.
 2. Post score and player name.
-3. Delete a score from the list.
 
 Phase 2: React and UI
 To be covered later.
