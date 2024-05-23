@@ -44,11 +44,10 @@ To create a virtual environment for your project, follow these steps:
 
 1. Open your terminal (command prompt, PowerShell, or any terminal you prefer).
 2. Create a virtual environment named .venv:
+
    ```bash
    python3 -m venv .venv
    ```
-
-````
 
 3. Activating the Virtual Environment
    Activate the virtual environment to ensure that any packages you install are local to this project.
@@ -87,4 +86,3 @@ To create a virtual environment for your project, follow these steps:
    ```
 
 8. visit http://127.0.0.1:8000/docs for Swagger UI
-````
