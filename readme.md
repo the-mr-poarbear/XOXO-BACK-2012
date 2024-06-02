@@ -23,11 +23,6 @@ In the XOXO game, we need an API connection to keep track of scores in a table. 
 - If the status is "WIN", find the player's score in the table and increase it by one.
 - If the status is "LOSE", find the player's score in the table and decrease it by one.
 
-For each match, two records will be posted. For example:
-
-- JOHN | 2pt
-- REZA | 0pt
-
 Phase 1: Connecting Database and API
 In this phase, you will create routes to:
 
