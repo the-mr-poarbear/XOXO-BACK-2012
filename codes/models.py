@@ -9,3 +9,5 @@ class Users(Base):
 
     name = Column(String , primary_key=True)
     score = Column(Integer)
+
+

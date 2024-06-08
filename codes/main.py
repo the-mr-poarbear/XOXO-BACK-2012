@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Body, Depends, FastAPI, HTTPException
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from codes import  models, schemas
@@ -46,15 +46,15 @@ def get_top_10(db: Session = Depends(get_db)):
 
 
 @app.post("/login")
-def Login(name ,  db : Session = Depends(get_db)):
-    user_model = db.query(models.Users).filter(models.Users.name == name).first()
+def Login(name: str = Body(...) ,  db : Session = Depends(get_db)):
+    user = db.query(models.Users).filter(models.Users.name == name).first()
 
-    if user_model is None :
-        new_user = schemas.User(name=name, score=0)
-        CreateUser(new_user , db)
-        return new_user
+    if user is None :
+        user = schemas.User(name=name, score=0)
+        CreateUser(user , db)
+        
     
-    return "Found"
+    return user
             
 
 @app.post("/")
@@ -69,8 +69,8 @@ def CreateUser(user : schemas.User , db : Session = Depends(get_db)):
     return user
 
 @app.put("/")
-def UpdateUser(name , status ,  db : Session = Depends(get_db) ):
-        user_model = db.query(models.Users).filter(models.Users.name == name).first()
+def UpdateUser(result : schemas.Result ,  db : Session = Depends(get_db) ):
+        user_model = db.query(models.Users).filter(models.Users.name == result.name).first()
         
         if user_model is None :
              raise HTTPException(
@@ -78,9 +78,9 @@ def UpdateUser(name , status ,  db : Session = Depends(get_db) ):
                   detail="User Was Not Found"
              )
         
-        if status == "WIN" :
+        if result.status == "WIN" :
             user_model.score += 1
-        elif status == "LOSE" :
+        elif result.status == "LOSE" :
              user_model.score -= 1
 
         db.add(user_model)
