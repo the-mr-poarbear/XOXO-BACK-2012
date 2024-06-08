@@ -3,11 +3,24 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from codes import  models, schemas
 from codes.database import SessionLocal, engine
+from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = {
+    "http://localhost:5173",
+    "http://127.0.0.1:5173" 
+}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():
@@ -32,12 +45,24 @@ def get_top_10(db: Session = Depends(get_db)):
 
 
 
+@app.post("/login")
+def Login(name ,  db : Session = Depends(get_db)):
+    user_model = db.query(models.Users).filter(models.Users.name == name).first()
+
+    if user_model is None :
+        new_user = schemas.User(name=name, score=0)
+        CreateUser(new_user , db)
+        return new_user
+    
+    return "Found"
+            
+
 @app.post("/")
 def CreateUser(user : schemas.User , db : Session = Depends(get_db)):
     user_model = models.Users()
     user_model.name = user.name 
     user_model.score = user.score
-
+    
     db.add(user_model)
     db.commit()
 
